@@ -25,43 +25,37 @@ export default {
     window: {
       backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'xbyj商城的测试版',
+      navigationBarTitleText: '大职网企业端',
       navigationBarTextStyle: 'black',
       'enablePullDownRefresh': true
     },
     tabBar: {
       'backgroundColor': '#fafafa',
       'borderStyle': 'white',
-      'selectedColor': '#b4282d',
-      'color': '#666',
+      'selectedColor': '#71BCFC',
+      'color': '#D0D0D0',
       'list': [{
         'pagePath': 'pages/index/index',
-        'iconPath': 'static/images/ic_menu_choice_nor.png',
-        'selectedIconPath': 'static/images/ic_menu_choice_pressed.png',
-        'text': '首页'
+        'iconPath': 'static/images/zhiwei1@2x.png',
+        'selectedIconPath': 'static/images/zhiwei2@2x.png',
+        'text': '职位'
       },
       {
         'pagePath': 'pages/topic/topic',
-        'iconPath': 'static/images/ic_menu_topic_nor.png',
-        'selectedIconPath': 'static/images/ic_menu_topic_pressed.png',
-        'text': '专题'
+        'iconPath': 'static/images/fabu1@2x.png',
+        'selectedIconPath': 'static/images/fabu2@2x.png',
+        'text': '发布'
       },
       {
         'pagePath': 'pages/catalog/catalog',
-        'iconPath': 'static/images/ic_menu_sort_nor.png',
-        'selectedIconPath': 'static/images/ic_menu_sort_pressed.png',
-        'text': '分类'
-      },
-      {
-        'pagePath': 'pages/cart/cart',
-        'iconPath': 'static/images/ic_menu_shoping_nor.png',
-        'selectedIconPath': 'static/images/ic_menu_shoping_pressed.png',
-        'text': '购物车'
+        'iconPath': 'static/images/xiaoxi1@2x.png',
+        'selectedIconPath': 'static/images/xiaoxi2@2x.png',
+        'text': '消息'
       },
       {
         'pagePath': 'pages/ucenter/index',
-        'iconPath': 'static/images/ic_menu_me_nor.png',
-        'selectedIconPath': 'static/images/ic_menu_me_pressed.png',
+        'iconPath': 'static/images/wode1@2x.png',
+        'selectedIconPath': 'static/images/wode1@2x.png',
         'text': '我的'
       }
       ]

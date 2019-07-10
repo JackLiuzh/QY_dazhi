@@ -1,34 +1,7 @@
 <template >
 <view class="container">
     <view class="search">
-        <navigator url="/pages/search/search" class="input">
-            <img class="icon"/>
-            <text class="txt">商品搜索, 共{{goodsCount}}款好物</text>
-        </navigator>
-    </view>
-    <view class="catalog">
-        <scroll-view class="nav" scroll-y="true">
-            <view :class="currentCategory.id == item.id ? 'active item' : 'item'" v-for="(item, index) of navList" :key="item.id" :data-id="item.id"
-                :data-index="index" @click="switchCate">{{item.name}}</view>
-        </scroll-view>
-        <scroll-view class="cate" scroll-y="true">
-            <view class="banner">
-                <img class="image" :src="currentCategory.wap_banner_url"/>
-                <view class="txt">{{currentCategory.front_name}}</view>
-            </view>
-            <view class="hd">
-                <text class="line"></text>
-                <text class="txt">{{currentCategory.name}}分类</text>
-                <text class="line"></text>
-            </view>
-            <view class="bd">
-                <navigator :url="'/pages/category/category?id=' + item.id" :class="(index+1) % 3 == 0 ? 'last item' : 'item'" v-for="(item, index) of currentCategory.subCategoryList"
-                    :key="item.id">
-                    <img class="icon" :src="item.wap_banner_url"/>
-                    <text class="txt">{{item.name}}</text>
-                </navigator>
-            </view>
-        </scroll-view>
+          
     </view>
 </view>
 </template>

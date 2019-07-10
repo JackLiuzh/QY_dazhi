@@ -16,7 +16,9 @@
   <view class="a-section a-brand">
     <view class="h">
       <navigator url="../brand/brand">
-        <text class="txt">ping造商直供</text>
+        <text class="txt">品质造商直供</text>
+        
+        <van-button type="danger">危险按钮</van-button>
       </navigator>
     </view>
     <view class="b">
@@ -123,12 +125,12 @@
     </view>
   </view>
 </view>
+
 </template>
 
 <script>
 // import api from '@/utils/api'
 import { mapState, mapActions } from 'vuex'
-
 export default {
   computed: {
     ...mapState([
