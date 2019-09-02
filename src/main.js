@@ -2,7 +2,6 @@ import Vue from 'vue'
 import store from '@/store'
 import App from '@/App'
 import MpvueRouterPatch from 'mpvue-router-patch'
-
 Vue.config.productionTip = false
 Vue.use(MpvueRouterPatch)
 
@@ -11,22 +10,19 @@ const app = new Vue({
   ...App
 })
 app.$mount()
-
+Vue.prototype.globalData = getApp().globalData
 export default {
   // 这个字段走 app.json
   config: {
     pages: [
-      'pages/index/index',
-      'pages/topic/topic',
-      'pages/catalog/catalog',
-      'pages/cart/cart',
-      'pages/ucenter/index'
+      'pages/index/index'
     ], // Will be filled in webpack
     window: {
       backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: '大职网企业端',
+      navigationBarTitleText: '职位',
       navigationBarTextStyle: 'black',
+      navigationStyle: 'custom',
       'enablePullDownRefresh': true
     },
     tabBar: {
@@ -55,7 +51,7 @@ export default {
       {
         'pagePath': 'pages/ucenter/index',
         'iconPath': 'static/images/wode1@2x.png',
-        'selectedIconPath': 'static/images/wode1@2x.png',
+        'selectedIconPath': 'static/images/wode2@2x.png',
         'text': '我的'
       }
       ]

@@ -13,7 +13,9 @@ const store = new Vuex.Store({
     brands: [],
     floorGoods: [],
     banner: [],
-    channel: []
+    channel: [],
+    userinfo:'',//用户信息
+    uid:'',//用户id
   },
   mutations: {
     getIndexData (state, res) {
@@ -24,6 +26,15 @@ const store = new Vuex.Store({
       state.floorGoods = res.data.categoryList;
       state.banner = res.data.banner;
       state.channel = res.data.channel;
+    },
+    setUserInfo(state,res){
+      state.userinfo = res
+    },
+    setUid(state,uid){
+      state.uid = uid
+    },
+    getUid(state){
+      return state.uid
     }
   },
   actions: {

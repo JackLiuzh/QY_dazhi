@@ -1,6 +1,6 @@
 <template>
  <div class="container">
-     <navBar :title="'二级页'"
+     <navBar :title="title"
     :titleColor="'white'"
     :back-visible="true"
     ></navBar>
@@ -16,92 +16,99 @@
                 已录用
             </div>
             <div :class="{'cur':tab === 4}"  @click="changTab(4)">
-                不合适
+                待结算
             </div>
             <div :class="{'cur':tab === 5}"  @click="changTab(5)">
                 已完结
             </div>
         </div>
         <div class="info"  v-if="tab === 1">
-            <div class="info-item">
+            <div @tap="gotomember(item.uid)" class="info-item" v-for="(item,index) in listall" :key="index">
                 <div class="info-item-top">
-                    <div class="info-item-toptitle">周末兼职美术老师</div>
-                    <div class="info-item-topright">待处理</div>
+                    <div class="info-item-toptitle">{{item.name}}</div>
+                    <div class="info-item-topright">2次兼职经验</div>
                 </div>
-                <div class="info-jianzhi"><span class="address">西安碑林</span>短期兼职 </div>
-                <div class="info-jianzhi"><span class="price-day">80<span style="font-size: 26rpx;">元/天</span></span>日结 </div>
-                <div class="info-lx">
-                    <div class="lx-div" @tap="tapModelShop">联系商家</div>
+                <div class="info-jianzhi"><span class="address">{{item.age}}岁</span>学生 </div>
+                <div class="info-jianzhi"><span class="price-day"><span style="font-size: 26rpx;color:#999999;">{{item.school_name}}</span></span>{{item.subject}}</div>
+                <div v-if="item.status===(1 | 2)" class="info-lx">
+                    <div class="lx-div" @tap="tapModelShop">联系学生</div>
+                    <div class="lx-div" @tap="tapModelShop">不适合</div>
+                    <div class="lx-div" @tap="goevaluate()">录取</div>
+                </div>
+                <div v-else-if="item.status===3" class="info-lx">
+                    <div class="lx-div" @tap="tapModelShop">联系学生</div>
+                    <div class="lx-div" @tap="tapModelShop">未就职</div>
+                    <div class="lx-div" @tap="goevaluate()">已就职</div>
+                </div>
+                <div v-else-if="item.status===4" class="info-lx">
+                    <div class="lx-div" @tap="tapModelShop">联系学生</div>
+                    <div class="lx-div" @tap="tapModelShop">结算</div>
+                </div>
+                <div v-else  class="info-lx">
+                    <div class="lx-div" @tap="tapModelShop">联系学生</div>
                     <div class="lx-bg"></div>
-                    <div class="lx-div" @tap="tapModelShopQQ">取消报名</div>
+                    <div v-if="(item.ifview===0 || item.ifview ===2)" class="lx-div" @tap="go_evaluate(item.uid)">去评价</div>
+                    <div v-else class="lx-div" @tap="go_check_evaluate(item.uid)">查看评价</div>
                 </div>
             </div>
         </div>
         <div class="info" v-else-if="tab===2">
-            <div class="info-item"  @click="mydetailUrl">
+            <div class="info-item" v-for="(item,index) in baominglist" :key="index">
                 <div class="info-item-top">
-                    <div class="info-item-toptitle">周末兼职美术老师</div>
-                    <div class="info-item-topright">待处理</div>
+                    <div class="info-item-toptitle">{{item.name}}</div>
+                    <div class="info-item-topright">已报名</div>
                 </div>
-                <div class="info-jianzhi"><span class="address">西安碑林</span>短期兼职 </div>
-                <div class="info-jianzhi"><span class="price-day">80<span style="font-size: 26rpx;">元/天</span></span>日结 </div>
+                <div class="info-jianzhi"><span class="address">{{item.age}}岁</span>学生 </div>
+                <div class="info-jianzhi"><span class="price-day"><span style="font-size: 26rpx;color:#999999;">{{item.school_name}}</span></span>{{item.subject}}</div>
                 <div class="info-lx">
-                    <div class="lx-div" @tap="tapModelShop">联系商家</div>
-                    <div class="lx-bg"></div>
-                    <div class="lx-div" @tap="tapModelShopQQ">取消报名</div>
+                    <div class="lx-div" @tap="tapModelShop">联系学生</div>
+                    <div class="lx-div" @tap="tapModelShop">不适合</div>
+                    <div class="lx-div" @tap="goevaluate()">录取</div>
                 </div>
             </div>
         </div>
         <div class="info" v-else-if="tab===3">
-            <div class="info-item">
+            <div class="info-item" v-for="(item,index) in luyonglist" :key="index">
                 <div class="info-item-top">
-                    <div class="info-item-toptitle">周末兼职美术老师</div>
+                    <div class="info-item-toptitle">{{item.name}}</div>
                     <div class="info-item-topright">已录用</div>
                 </div>
-                <div class="info-jianzhi"><span class="address">西安碑林</span>短期兼职 </div>
-                <div class="info-jianzhi"><span class="price-day">80<span style="font-size: 26rpx;">元/天</span></span>日结 </div>
+                <div class="info-jianzhi"><span class="address">{{item.age}}岁</span>学生 </div>
+                <div class="info-jianzhi"><span class="price-day"><span style="font-size: 26rpx;color:#999999;">{{item.school_name}}</span></span>{{item.subject}}</div>
                 <div class="info-lx">
-                    <div class="lx-div" @tap="tapModelShop">联系商家</div>
-                    <div class="lx-bg"></div>
-                    <div class="lx-div" @tap="tapModelShopQQ">已结算</div>
+                    <div class="lx-div" @tap="tapModelShop">联系学生</div>
+                    <div class="lx-div" @tap="tapModelShop">未就职</div>
+                    <div class="lx-div" @tap="goevaluate()">已就职</div>
                 </div>
             </div>
         </div>
         <div class="info" v-else-if="tab===4">
-            <div class="info-item">
+            <div class="info-item" v-for="(item,index) in jiesuanlist" :key="index">
                 <div class="info-item-top">
-                    <div class="info-item-toptitle">周末兼职美术老师</div>
-                    <div class="info-item-topright">不合适</div>
+                    <div class="info-item-toptitle">{{item.name}}</div>
+                    <div class="info-item-topright">待结算</div>
                 </div>
-                <div class="info-jianzhi"><span class="address">西安碑林</span>短期兼职 </div>
-                <div class="info-jianzhi"><span class="price-day">80<span style="font-size: 26rpx;">元/天</span></span>日结 </div>
+                <div class="info-jianzhi"><span class="address">{{item.age}}岁</span>学生 </div>
+                <div class="info-jianzhi"><span class="price-day"><span style="font-size: 26rpx;color:#999999;">{{item.school_name}}</span></span>{{item.subject}}</div>
+                <div class="info-lx">
+                    <div class="lx-div" @tap="tapModelShop">联系学生</div>
+                    <div class="lx-div" @tap="tapModelShop">已结算</div>
+                </div>
             </div>
         </div>
-        <div class="info" v-else>
-            <div class="info-item">
+        <div class="info" v-else>            
+            <div class="info-item" v-for="(item,index) in wanjielist" :key="index">
                 <div class="info-item-top">
-                    <div class="info-item-toptitle">周末兼职美术老师</div>
-                    <div class="info-item-topright">已结算</div>
+                    <div class="info-item-toptitle">{{item.name}}</div>
+                    <div class="info-item-topright">已完结</div>
                 </div>
-                <div class="info-jianzhi"><span class="address">西安碑林</span>短期兼职 </div>
-                <div class="info-jianzhi"><span class="price-day">80<span style="font-size: 26rpx;">元/天</span></span>日结 </div>
+                <div class="info-jianzhi"><span class="address">{{item.age}}岁</span>学生 </div>
+                <div class="info-jianzhi"><span class="price-day"><span style="font-size: 26rpx;color:#999999;">{{item.school_name}}</span></span>{{item.subject}}</div>
                 <div class="info-lx">
-                    <div class="lx-div" @tap="tapModelShop">联系商家</div>
+                    <div class="lx-div" @tap="tapModelShop">联系学生</div>
                     <div class="lx-bg"></div>
-                    <div class="lx-div" @click="evaluationUrl">去评价</div>
-                </div>
-            </div>
-            <div class="info-item">
-                <div class="info-item-top">
-                    <div class="info-item-toptitle">周末兼职美术老师</div>
-                    <div class="info-item-topright">已结算</div>
-                </div>
-                <div class="info-jianzhi"><span class="address">西安碑林</span>短期兼职 </div>
-                <div class="info-jianzhi"><span class="price-day">80<span style="font-size: 26rpx;">元/天</span></span>日结 </div>
-                <div class="info-lx">
-                    <div class="lx-div" @tap="tapModelShop">联系商家</div>
-                    <div class="lx-bg"></div>
-                    <div class="lx-div" @click="pjdetailUrl">查看评价</div>
+                    <div v-if="(item.ifview===0 || item.ifview ===2)" class="lx-div" @tap="go_evaluate(item.uid)">去评价</div>
+                    <div v-else class="lx-div" @tap="go_check_evaluate(item.uid)">查看评价</div>
                 </div>
             </div>
         </div>
@@ -130,15 +137,21 @@
 </template>
 
 <script>
-
+// status 状态（1-已报名 2-已录用 3-待结算 4-已完结）
+  import api from '@/utils/api' 
+  import navBar from '@/components/navigationBar'
   // Use Vuex
   export default {
+    components: {
+     navBar
+    },   
     computed: {
 
     },
     data () {
       return {
         tab:1,
+        jobid:'',
         statusBarHeight: '', // 状态栏高度
         titleBarHeight: '', // 标题栏高度
         navBarHeight: '', // 导航栏总高度
@@ -148,11 +161,18 @@
         system: '',
         isModel:false,
         changeModel:false,
-        changeQQModel:false
+        changeQQModel:false,
+        
+        listall:[],//全部数据
+        baominglist:[],//已报名的数据
+        luyonglist:[],
+        jiesuanlist:[],
+        wanjielist:[],
+        title:'',//导航栏标题
+
       }
     },
     beforeMount () {
-
       const self = this
       wx.getSystemInfo({
         success (system) {
@@ -174,7 +194,59 @@
         }
       })
     },
+    mounted(){
+        const name=this.$route.query.name
+        const jobid = this.$route.query.jobid
+        this.jobid = jobid
+        if(name == '已报名'){
+            this.tab = 2
+            this.init(jobid,1)
+        }else if(name == '已录用'){
+            this.tab = 3
+            this.init(jobid,2)
+        }else if(name == '待结算'){
+            this.tab = 4
+            this.init(jobid,3)
+        }else{
+            this.init(jobid,'')
+        }
+    },
     methods: {
+      async init(jobid,status=''){
+          const res = await api.getstulistbystatus({jobid:jobid,status:status})
+          if(res.code == 1){
+              this.title = res.data.job_title
+              if(status === 1){
+                  this.baominglist = res.data.apply_users
+              }else if(status === 2){
+                  this.luyonglist = res.data.apply_users
+              }else if(status === 3){
+                  this.jiesuanlist = res.data.apply_users
+              }else if(status === 4){
+                  this.wanjielist = res.data.apply_users
+              }else {
+                  this.listall = res.data.apply_users
+              }
+          }
+      },
+      //去信息页
+      gotomember(stuid){
+        //   this.$router.push({path:'/pages/index/member',query:{jobid:this.jobid,stuid:stuid}})
+          this.$router.push({path:'/pages/index/middle',query:{jobid:this.jobid,stuid:stuid}})
+      },
+      //去评价
+      go_evaluate(stuid){
+          this.$router.push({path:'/pages/index/evaluate',query:{jobid:this.jobid,stuid:stuid}})
+      },
+      //查看评价
+      go_check_evaluate(stuid){
+          this.$router.push({path:'/pages/index/check_evaluate',query:{jobid:this.jobid,stuid:stuid}})
+      },
+      goevaluate(){
+        wx.navigateTo({
+           url:'../index/evaluate'
+        })
+      },
       // 返回跳转
       back(){
         wx.navigateBack({
@@ -183,6 +255,7 @@
       },
       changTab(index) {
         this.tab = index;
+        this.init(this.jobid,(index - 1))
       },
       //  弹框取消
       tapCancel(){
@@ -227,14 +300,14 @@
     background-color: #f5f8f9;
   }
   .container {
-      height: 100%;
+      /* height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
       box-sizing: border-box;
       padding: 0px;
-      padding-bottom: 300rpx;
+      padding-bottom: 300rpx; */
   }
   .search_title{
       width: 750rpx;

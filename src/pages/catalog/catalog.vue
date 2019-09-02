@@ -1,7 +1,7 @@
 <template >
 <view class="container">
     <view class="search">
-          
+          消息
     </view>
 </view>
 </template>
