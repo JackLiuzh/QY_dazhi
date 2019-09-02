@@ -41,7 +41,7 @@
                 <div v-if="item.status===2" class="bottom_but">
                      <div @tap="closeoropenjz(item.jobid,item.status)" class="but_le">关闭</div>
                      <div class="but_mi">|</div>
-                     <div class="but_ri">优化</div>
+                     <div class="but_ri">优</div>
                 </div>
                 <div v-if="item.status===3" class="bottom_but">
                      <div @tap="closeoropenjz(item.jobid,item.status)" class="but_le">开启</div>
