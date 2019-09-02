@@ -65,6 +65,13 @@ module.exports = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ]),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../Vant'),
+        to: path.resolve(__dirname, '../dist/Vant'),
+        ignore: ['.*']
+      }
+    ]),
     new webpack.NoEmitOnErrorsPlugin(),
     new FriendlyErrorsPlugin()
   ]
