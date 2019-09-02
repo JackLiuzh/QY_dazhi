@@ -37,7 +37,7 @@ export default {
         'text': '职位'
       },
       {
-        'pagePath': 'pages/topic/topic',
+        'pagePath': 'pages/topic/onestep',
         'iconPath': 'static/images/fabu1@2x.png',
         'selectedIconPath': 'static/images/fabu2@2x.png',
         'text': '发布'

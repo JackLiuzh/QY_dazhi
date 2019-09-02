@@ -1,5 +1,5 @@
 module.exports = [
-  
+
   {
     path: 'pages/index/login',
     name: 'index_login',
@@ -37,8 +37,6 @@ module.exports = [
       }
     }
   },
-  
-  
   {
     path: '/pages/index/company_detail',
     name: 'index_company_detail',
@@ -185,19 +183,67 @@ module.exports = [
     }
   },
   {
-    path: 'pages/topic/topic',
+    path: 'pages/topic/onestep',
     name: 'topic',
     config: {
       enablePullDownRefresh: true,
-      navigationBarTitleText: '发布'
+      navigationBarTitleText: '发布兼职'
     }
   },
   {
-    path: 'pages/catalog/catalog',
-    name: 'catalog',
+    path: 'pages/topic/twostep',
+    name: 'topic',
     config: {
       enablePullDownRefresh: true,
-      navigationBarTitleText: '消息'
+      navigationBarTitleText: '发布兼职'
+    }
+  },
+  {
+    path: 'pages/topic/thrstep',
+    name: 'topic',
+    config: {
+      enablePullDownRefresh: true,
+      navigationBarTitleText: '发布兼职'
+    }
+  },
+  {
+    path: 'pages/topic/forstep',
+    name: 'topic',
+    config: {
+      enablePullDownRefresh: true,
+      navigationBarTitleText: '发布兼职'
+    }
+  },
+  {
+    path: 'pages/topic/forstep2',
+    name: 'topic',
+    config: {
+      enablePullDownRefresh: true,
+      navigationBarTitleText: '添加工作地点'
+    }
+  },
+  {
+    path: 'pages/topic/firstep',
+    name: 'topic',
+    config: {
+      enablePullDownRefresh: true,
+      navigationBarTitleText: '发布兼职'
+    }
+  },
+  {
+    path: 'pages/topic/submit',
+    name: 'topic',
+    config: {
+      enablePullDownRefresh: true,
+      navigationBarTitleText: '提交成功'
+    }
+  },
+  {
+    path: 'pages/topic/publish',
+    name: 'topic',
+    config: {
+      enablePullDownRefresh: true,
+      navigationBarTitleText: '发布兼职'
     }
   },
   {
@@ -208,9 +254,9 @@ module.exports = [
       navigationBarTitleText: ''
     }
   },
-  
+
   // 上面5个是tabBar
-  
+
   {
     path: 'pages/index/second',
     name: 'index_second',
@@ -219,5 +265,45 @@ module.exports = [
       navigationBarTitleText: '二级页面'
     }
   },
- 
+  {
+    path: 'pages/catalog/catalog',
+    name: 'catalog',
+    config: {
+      enablePullDownRefresh: true,
+      navigationBarTitleText: '消息中心'
+    }
+  },
+  {
+    path: 'pages/catalog/nomassage',
+    name: 'catalog',
+    config: {
+      enablePullDownRefresh: true,
+      navigationBarTitleText: '消息中心'
+    }
+  },
+  {
+    path: 'pages/catalog/qiye',
+    name: 'catalog',
+    config: {
+      enablePullDownRefresh: true,
+      navigationBarTitleText: '企业信息、资质认证'
+    }
+  },
+  {
+    path: 'pages/catalog/survey',
+    name: 'catalog',
+    config: {
+      enablePullDownRefresh: true,
+      navigationBarTitleText: '校园市场调研员'
+    }
+  },
+  {
+    path: 'pages/catalog/fankui',
+    name: 'catalog',
+    config: {
+      enablePullDownRefresh: true,
+      navigationBarTitleText: '反馈结果通知'
+    }
+  }
+
 ]
