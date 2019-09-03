@@ -181,7 +181,7 @@
           </view>
         </view>
 
-        <view  v-for="(arr_d,index) in worktime" >
+        <view  v-for="(arr_d,index) in worktime1" >
           <view class="v14">
             <view class="v15" >
               {{arr_d[0]}}:00-{{arr_d[1]}}:00
@@ -286,13 +286,13 @@
         sum: 0,
         paytype: 0,
         age: '',
-        // worktime: '',
         userinfo: [],
         multiArray: [[], []],
         multiIndex: [0, 10],
         dateArray: [[], []],
         dateIndex: [9, 17],
-        worktime: [],
+        worktime1: [],
+        worktime: '',
         panduan: 0,
         fs: '',
         cs: '',
@@ -346,13 +346,44 @@
         // edulevel: [],
         paytype_list: [],
         welfare: [],
+        welfare_id: [],
+        welfarecs: '',
         cycle: [],
+        cycs: '',
+        cycle_id: [],
         xl: 0,
-        xb: 0
+        contactinfo: [],
+        type: '',
+        posid: '',
+        salary_stand_id: '',
+        salary: '',
+        title: '',
+        service_groups: '',
+        skills: '',
+        images: '',
+        subjects: '',
+        labels: '',
+        requirement: '',
+        workcontent: '',
+        xb: 0,
       }
     },
     mounted () {
       this.Jobstep5()
+      this.type = wx.getStorageSync('type')
+      this.posid = wx.getStorageSync('posid')
+      this.salary_stand_id = wx.getStorageSync('salary_stand_id')
+      this.salary = wx.getStorageSync('salary')
+      this.title = wx.getStorageSync('title')
+      this.service_groups = wx.getStorageSync('service_groups')
+      this.skills = wx.getStorageSync('skills')
+      this.subjects = wx.getStorageSync('subjects')
+      this.images = wx.getStorageSync('images')
+      this.labels = wx.getStorageSync('labels')
+      this.requirement = wx.getStorageSync('requirement')
+      this.workcontent = wx.getStorageSync('workcontent')
+      // this.ccs93 = wx.getStorageSync('userinfo')
+
       for(var n=0;n<2;n++){
         for (var m = 16; m < 51; m++) {
           this.multiArray[n].push(m)
@@ -384,6 +415,7 @@
           });
           this.$forceUpdate();
         }
+        wx.setStorageSync('userinfo', this.userinfo)
       },
       change1: function (e) {
         let that = this
@@ -393,7 +425,7 @@
           if(a == item.id){
             item.active = true;
             this.paytype = item.id
-            wx.setStorageSync('paytype', this.paytype)
+            // wx.setStorageSync('paytype', this.paytype)
             this.cs = wx.getStorageSync('paytype')
             console.log(this.paytype)
           }else {
@@ -403,25 +435,48 @@
       },
       change2: function (e) {
         var that = this;
+        var hh = 0;
         var index = e.currentTarget.dataset.key;
         var list = that.welfare;
         // 判断是否选中
         list[index].active = !list[index].active;
-        console.log(list[index].id)
-
+        if (list[index].active) {
+          this.welfare_id.push(list[index].id)
+        } else {
+          for(hh ; hh < this.welfare_id.length; hh++) {
+            if (list[index].id == this.welfare_id[hh]) {
+              this.welfare_id.splice(hh, 1)
+            }
+          }
+        }
+        this.welfarecs = this.welfare_id.join()
+        console.log(this.welfarecs)
+        // wx.setStorageSync('welfare_id', this.welfare_id)
       },
       change3: function (e) {
         var that = this;
+        var hh = 0;
         var index = e.currentTarget.dataset.key;
         var list = that.cycle;
         // 判断是否选中
         list[index].active = !list[index].active;
-
+        if (list[index].active) {
+          this.cycle_id.push(list[index].id)
+        } else {
+          for(hh ; hh < this.cycle_id.length; hh++) {
+            if (list[index].id == this.cycle_id[hh]) {
+              this.cycle_id.splice(hh, 1)
+            }
+          }
+        }
+        this.cycs = this.cycle_id.join()
+        console.log(this.cycs)
+        // wx.setStorageSync('cycle_id', this.cycle_id)
       },
       Arange (e) {
         this.multiIndex = e.mp.detail.value
         this.age += this.multiArray[0][this.multiIndex[0]] + '~' + this.multiArray[1][this.multiIndex[1]]
-        wx.setStorageSync('age', this.age)
+        // wx.setStorageSync('age', this.age)
         // console.log(this.age)
       },
       // kk: function(e){
@@ -432,9 +487,10 @@
         let that = this
         // var tt = e.currentTarget.dataset.key1;
         that.dateIndex = e.mp.detail.value
-        that.worktime.push([that.dateArray[0][that.dateIndex[0]],that.dateArray[1][that.dateIndex[1]]])
+        that.worktime1.push([that.dateArray[0][that.dateIndex[0]],that.dateArray[1][that.dateIndex[1]]])
         // this.worktime += this.multiArray[0][this.multiIndex[0]] + '~' + this.multiArray[1][this.multiIndex[1]]
-        wx.setStorageSync('worktime', this.worktime)
+        // wx.setStorageSync('worktime', this.worktime)
+        this.worktime = this.worktime1.join()
         console.log(this.worktime)
       },
       deletePerson: function(e) {
@@ -448,54 +504,90 @@
         console.log(that.tjzxindex)
         if(that.tjzxindex == 1){
           that.fs = that.userinfo.email
+          // this.$set(this.contactinfo, 'name', this.userinfo.realname);
+          // // this.$set(this.cs93, 'type', "电话");
+          // // this.$set(this.cs93, 'mun', this.ccs93.phone);
+          // this.$forceUpdate();
+          // // // this.contactinfo = JSON.stringify(this.cs93)
+          // // // // this.contactinfo = JSON.parse(this.cs93);
+          // // // // console.log(this.cs93)
+          // // // // this.contactinfo = this.userinfo.realname +"," + this.userinfo.phone
+          // console.log(this.contactinfo)
         }
         else if(that.tjzxindex == 2){
           that.fs = that.userinfo.qq
+          // this.$set(this.cs93, 'qq', this.userinfo.qq);
+          // this.$forceUpdate();
+          // this.contactinfo = JSON.stringify(this.cs93)
+          // // console.log(this.contactinfo)
         }else if(that.tjzxindex == 0){
           that.fs = ''
         }
-        console.log(that.fs)
+        console.log(this.contactinfo)
+        this.contactinfo = this.userinfo.realname +"," + this.userinfo.phone +","+ that.fs
+        // console.log(this.contactinfo)
+        // console.log(that.fs)
       },
 
       bindPickerChange1: function (e) {
-        // console.log(e)
-        // console.log('picker发送选择改变，携带值为', e.mp.detail.value)
         this.xb = e.mp.detail.value
         this.sex = this.sex_list[this.xb].id
-        wx.setStorageSync('sex', this.sex)
-        // this.cs = wx.getStorageSync('sex')
-        // console.log(this.cs)
       },
       bindPickerChange2: function (e) {
-        // console.log(e)
-        // console.log('picker发送选择改变，携带值为', e.mp.detail.value)
         this.xl = e.mp.detail.value
         this.edulevel = this.edulevel_list[this.xl].id
-        wx.setStorageSync('edulevel', this.edulevel)
+        // wx.setStorageSync('edulevel', this.edulevel)
       },
       bindDateChange1: function (e) {
-        // console.log('picker发送选择改变，携带值为', e.mp.detail.value)
         this.startdate = e.mp.detail.value
-        wx.setStorageSync('startdate', this.startdate)
-        this.cs = wx.getStorageSync('startdate')
-        console.log(this.cs)
       },
       bindDateChange2: function (e) {
-        // console.log('picker发送选择改变，携带值为', e.mp.detail.value)
-        this.enddate2 = e.mp.detail.value
-        wx.setStorageSync('enddate', this.enddate)
+        this.enddate = e.mp.detail.value
+        // wx.setStorageSync('enddate', this.enddate)
       },
       bindDateChange3: function (e) {
-        // console.log('picker发送选择改变，携带值为', e.mp.detail.value)
         this.regdeadline = e.mp.detail.value
-        wx.setStorageSync('regdeadline', this.regdeadline)
+        // wx.setStorageSync('regdeadline', this.regdeadline)
       },
       input: function (e) {
         this.sum = e.mp.detail.value
-        wx.setStorageSync('sum', this.sum)
+        // wx.setStorageSync('sum', this.sum)
         console.log(this.sum)
       },
+      async saveXx () {
+        const res = await apii.saveXx({
+          uid: this.uid,
+          type: this.type,
+          posid: this.posid,
+          salary_stand_id: this.salary_stand_id,
+          salary: this.salary,
+          title: this.title,
+          service_groups: this.service_groups,
+          skills: this.skills,
+          images: this.images,
+          subjects: this.subjects,
+          labels: this.labels,
+          requirement: this.requirement,
+          sex: this.sex,
+          edulevel: this.edulevel,
+          age: this.age,
+          sum: this.sum,
+          paytype: this.paytype,
+          welfare: this.welfarecs,
+          startdate: this.startdate,
+          enddate: this.enddate,
+          cycle: this.cycs,
+          workcontent: this.workcontent,
+          worktime: this.worktime,
+          regdeadline: this.regdeadline,
+          contactinfo: this.contactinfo
+        });
+        if (res.code === 1) {
+          console.log(res.msg)
+        }
+      },
       nextstep: function () {
+        this.saveXx()
         wx.navigateTo({
           url: '/pages/topic/submit'
         })

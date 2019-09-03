@@ -16,6 +16,10 @@ const apii = {
   Jobstep5: (paramObj) => request.get('Job/step5', paramObj, {
     baseURL: ApiRootUrl
   }),
+  // 保存兼职信息
+  saveXx: (paramObj) => request.post('Job/save', paramObj, {
+    baseURL: ApiRootUrl
+  }),
   // 消息类型列表
   message: (paramObj) => request.get('Messages/index', paramObj, {
     baseURL: ApiRootUrl

@@ -100,26 +100,13 @@
           // console.log(item.id)
           if(b == item.id){
             item.active = true;
+            this.type = item.id
+            console.log(this.type)
           }else {
             item.active = false;
           }
         })
       },
-      // }
-      // if (this.isActive == true) {
-      //     this.isActive = false;
-      //     } else {
-      //     this.isActive = true;
-      //     }
-      // let arr = this.position.children;
-      //
-      // console.log(this.position[n].children.active);
-      // console.log(a)
-      // this.isChecked = code;
-      // this.hh = a;
-      // if(this.hh == this.isChecked){
-      //   this.isActive = false;
-      // }
       changeClass: function (e) {
         var n=0
         var m=0
@@ -134,7 +121,7 @@
               item.active = true;
               this.posid = item.id
               console.log(this.posid)
-              wx.setStorageSync('posid', this.posid)
+              // wx.setStorageSync('posid', this.posid)
             }else {
               item.active = false;
             }
@@ -144,6 +131,8 @@
       },
 
       nextstep: function () {
+        wx.setStorageSync('type', this.type)
+        wx.setStorageSync('posid', this.posid)
         wx.navigateTo({
           url: '/pages/topic/twostep'
         })

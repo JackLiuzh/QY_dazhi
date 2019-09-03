@@ -44,7 +44,7 @@
         <text class="text4" >标签</text>
         <view class="bq">
           <view v-for="(bq,index) in job_label":key="index">
-            <view :data-key="index" :class="[bq.active?'bq2':'bq3']"  @click="change2" >
+            <view :data-key="index" :data-bqid="id" :class="[bq.active?'bq2':'bq3']"  @click="change2" >
               {{bq.title}}
             </view>
           </view>
@@ -66,25 +66,28 @@
     <text class="text3">文本生成(可自主编辑)</text>
 
 
-    <view class="zwyq">职位要求
+    <view class="zwyq">
+    <textarea :value="requirement" @input="contentinput" class="zwyqnr"  maxlength="500"></textarea>
+      <view class="zs">{{word}}</view>
+    </view>
 
-
-    <textarea :value="zonghe" @input="csinput" class="zwyqnr" auto-height="true" maxlength="***"></textarea>
+<!--      auto-height="true"-->
 <!--      <textarea :value="zwyq_content" @input="csinput" class="wqq"></textarea>-->
 
 <!--      <view class="wqq">标签：<textarea :value="yqbq" @input="csinput"></textarea></view>-->
 
-      <view class="gznr">工作内容：
-        <view v-for="(poscontent,index) in job_poscontent":key="index">
-          <view v-if="poscontent.active">
-            <view class="wqq">{{index+1}}.{{poscontent.jobcontent}}</view>
-          </view>
-        </view>
-      </view>
+<!--      <view class="gznr">工作内容：-->
+<!--        <textarea :value="gznr" @input="csinput" class="wqq"  maxlength="***"></textarea>-->
+<!--&lt;!&ndash;        <view v-for="(poscontent,index) in job_poscontent":key="index">&ndash;&gt;-->
+<!--&lt;!&ndash;          <view v-if="poscontent.active">&ndash;&gt;-->
+<!--&lt;!&ndash;            <view class="wqq">{{index+1}}.{{poscontent.jobcontent}}</view>&ndash;&gt;-->
+<!--&lt;!&ndash;          </view>&ndash;&gt;-->
+<!--&lt;!&ndash;        </view>&ndash;&gt;-->
+<!--&lt;!&ndash;      </view>&ndash;&gt;-->
+<!--      </view>-->
+<!--      <view class="zs">198/500</view>-->
 
-      <view class="zs">198/500</view>
-
-    </view>
+<!--    </view>-->
 
 
 
@@ -145,11 +148,16 @@
         skills: '',
         images: '',
         subjects: '',
+        labelscs: [],
         labels: '',
+        workcontentcs: [],
+        workcontent: '',
         cs: '',
-        gznr: '',
-        zonghe: '',
-        yqbq: ''
+        gznr: [],
+        requirement: '',
+        kong: '',
+        word: '',
+        yqbq: []
       }
     },
     mounted () {
@@ -185,6 +193,7 @@
       change1: function (e) {
         var n=0
         var m=0
+
         let a = e.currentTarget.dataset.id;
         let b = e.currentTarget.dataset.index1;
         let c = e.currentTarget.dataset.index2;
@@ -196,19 +205,20 @@
                 if (item.active) {
                   this.qqq0.push(this.job_require[b].children[c].id)
                   this.tt0.push(this.job_require[b].children[c].title )
-                  console.log(this.tt0)
+                  // console.log(this.tt0)
                 } else {
                   var cs = 0;
                   for (cs; cs < this.qqq0.length; cs++) {
                     if (item.id == this.qqq0[cs]) {
                       this.qqq0.splice(cs, 1)
                       this.tt0.splice(cs, 1)
-                      console.log(this.tt0)
                     }
                   }
                 }
                 this.nr0 = this.job_require[b].content.replace(/【】/g, this.tt0)
-                console.log(this.nr0)
+                // console.log(this.nr0)
+                this.service_groups = this.qqq0.join()
+                console.log(this.service_groups)
               }else if(b==1){
                 if (item.active) {
                   this.qqq1.push(this.job_require[b].children[c].id)
@@ -220,11 +230,13 @@
                     if (item.id == this.qqq1[cs]) {
                       this.qqq1.splice(cs, 1)
                       this.tt1.splice(cs, 1)
-                      // console.log(this.qqq1)
+
                     }
                   }
                 }
                 this.nr1 = this.job_require[b].content.replace(/【】/g, this.tt1)
+                this.skills = this.qqq1.join()
+                console.log(this.skills)
               }
               else if(b==2){
                 if (item.active) {
@@ -237,11 +249,13 @@
                     if (item.id == this.qqq2[cs]) {
                       this.qqq2.splice(cs, 1)
                       this.tt2.splice(cs, 1)
-                      // console.log(this.qqq2)
+
                     }
                   }
                 }
                 this.nr2 = this.job_require[b].content.replace(/【】/g, this.tt2)
+                this.images = this.qqq2.join()
+                console.log(this.images)
               }
               else if(b==3){
                 if (item.active) {
@@ -254,11 +268,13 @@
                     if (item.id == this.qqq3[cs]) {
                       this.qqq3.splice(cs, 1)
                       this.tt3.splice(cs, 1)
-                      // console.log(this.qqq3)
+
                     }
                   }
                 }
                 this.nr3 = this.job_require[b].content.replace(/【】/g, this.tt3)
+                this.subjects = this.qqq3.join()
+                console.log(this.subjects)
               }
               else if(b==4){
                 if (item.active) {
@@ -271,11 +287,12 @@
                     if (item.id == this.qqq4[cs]) {
                       this.qqq4.splice(cs, 1)
                       this.tt4.splice(cs, 1)
-                      // console.log(this.qqq4)
+
                     }
                   }
                 }
                 this.nr4 = this.job_require[b].content.replace(/【】/g, this.tt4)
+                console.log(this.qqq4)
               }
               else if(b==5){
                 if (item.active) {
@@ -288,36 +305,54 @@
                     if (item.id == this.qqq5[cs]) {
                       this.qqq5.splice(cs, 1)
                       this.tt5.splice(cs, 1)
-                      // console.log(this.qqq5)
                     }
                   }
                 }
                 this.nr5 = this.job_require[b].content.replace(/【】/g, this.tt5)
+                console.log(this.qqq5)
               }
             }
           })
         }
 
-        this.zwyq_content = this.nr0 +'\n' + this.nr1 +'\n' + this.nr2 +'\n' + this.nr3 +'\n' + this.nr4 + '\n'
+        this.zwyq_content ='\n' + this.nr0 +'\n' + this.nr1 +'\n' + this.nr2 +'\n' + this.nr3 +'\n' + this.nr4
         console.log(this.zwyq_content)
-        this.zonghe = '职位要求:' + this.zwyq_content + '标签:' + this.yqbq + '\n' + '工作内容:' + this.gznr + '\n'
-        console.log(this.zonghe)
+        // this.zonghe = this.zwyq_content + '需要' + this.yqbq
+        this.requirement = '职位要求：'+'\n' + this.zwyq_content + '需要' + this.kong +'\n' +  '工作内容：' + '\n' + this.gznr
+        console.log(this.requirement)
         // return this.biubiu
       },
       change2: function (e) {
         var that = this;
+        // var bqid = e.currentTarget.dataset.bqid;
         var index = e.currentTarget.dataset.key;
         var list = that.job_label;
         // 判断是否选中
         list[index].active = !list[index].active;
-        this.yqbq += list[index].title + '、'
-        this.labels += list[index].id + ','
+        // for(let i =0;i<list.length;i++){
+        if (list[index].active) {
+          this.labelscs.push(list[index].id)
+          this.yqbq.push(list[index].title)
+        } else {
+          var cs = 0;
+          for (cs; cs < this.labelscs.length; cs++) {
+            if (list[index].id == this.labels[cs]) {
+              this.labelscs.splice(cs, 1)
+              this.yqbq.splice(cs, 1)
+            }
+          }
+        }
+        // }
+        // this.yqbq += list[index].title + '、'
+        // this.labels += list[index].id + ','
+        this.labels = this.labelscs.join()
+        this.kong = this.yqbq +'\n'
         console.log(this.labels)
         console.log(this.yqbq)
-        this.zonghe = '职位要求:' + this.zwyq_content + '标签:' + this.yqbq + '\n' + '工作内容:' + this.gznr + '\n'
+        this.requirement = '职位要求：'+'\n' + this.zwyq_content + '需要' + this.kong +'\n' +  '工作内容：' + '\n' + this.gznr
         // this.zonghe = this.zwyq_content  + '标签:' + this.yqbq
-        console.log(this.zonghe)
-        return this.zonghe
+        console.log(this.requirement)
+        return this.requirement
       },
       change3: function (e) {
         var that = this;
@@ -326,28 +361,57 @@
         // 判断是否选中
         list[index].active = !list[index].active;
         if (list[index].active) {
-          this.gznr = this.gznr + '\n' + list[index].jobcontent
+          this.workcontentcs.push(list[index].id)
+          this.gznr.push(list[index].jobcontent)
+        } else {
+          var cs = 0;
+          for (cs; cs < this.workcontentcs.length; cs++) {
+            if (list[index].id == this.workcontent[cs]) {
+              this.workcontentcs.splice(cs, 1)
+              this.gznr.splice(cs, 1)
+            }
+          }
         }
-        this.zonghe = '职位要求:' + this.zwyq_content + '标签:' + this.yqbq + '\n' + '工作内容:' + this.gznr + '\n'
+        this.workcontent = this.workcontentcs.join()
+        // if (list[index].active) {
+        //   this.gznr = this.gznr + '\n' + list[index].jobcontent
+        // }
+        this.requirement = '职位要求：'+'\n' + this.zwyq_content + '需要' + this.kong +'\n' +  '工作内容：' + '\n' + this.gznr
         console.log(this.gznr)
-        console.log(this.zonghe)
+        console.log(this.requirement)
       },
       input: function (e) {
         this.title = e.mp.detail.value
-        wx.setStorageSync('title', this.title)
+
         console.log(this.title)
       },
       nextstep: function () {
         // this.cs = wx.getStorageSync('service_groups')
         // console.log(this.cs)
+        wx.setStorageSync('title', this.title)
+        wx.setStorageSync('service_groups', this.service_groups)
+        wx.setStorageSync('skills', this.skills)
+        wx.setStorageSync('images', this.images)
+        wx.setStorageSync('subjects', this.subjects)
+        wx.setStorageSync('labels', this.labels)
+        wx.setStorageSync('requirement', this.requirement)
+        wx.setStorageSync('workcontent', this.workcontent)
         wx.navigateTo({
           url: '/pages/topic/forstep'
         })
       },
-      csinput: function (e) {
-        this.yqbq = e.mp.detail.value
+      contentinput: function (e) {
+        this.requirement = e.mp.detail.value;
+        let len = parseInt(this.requirement.length);
+        console.log(len)
+        if (len < 500){
+          this.word = len + '/500'
+        }
+        else{
+          this.word = "500/500";
+        }
         // wx.setStorageSync('title', this.title)
-        console.log(this.yqbq)
+        console.log(this.requirement)
       },
     }
   }
@@ -426,7 +490,9 @@
   }
   .wqq{
     /*display: flex;*/
-    margin-top:25rpx;
+    /*margin-top:25rpx;*/
+    width:680rpx;
+    height:800rpx;
     font-size:28rpx;
     line-height:45rpx;
     font-family:PingFang-SC-Regular;
@@ -434,9 +500,9 @@
   }
   .zwyqnr{
     /*display: flex;*/
+    margin-top:25rpx;
     width:680rpx;
     height:800rpx;
-    margin-top:25rpx;
     font-size:28rpx;
     line-height:45rpx;
     font-family:PingFang-SC-Regular;
@@ -620,12 +686,12 @@
     margin-left:550rpx;
     /*margin-top:31rpx;*/
     width:111rpx;
-    height:26rpx;
+    height:28rpx;
     font-size:28rpx;
     font-family:PingFang-SC-Regular;
     font-weight:400;
     color:rgba(153,153,153,1);
-    line-height:50rpx;
+    /*line-height:50rpx;*/
   }
 
   .button{

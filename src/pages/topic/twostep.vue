@@ -94,7 +94,6 @@
             item.active = true;
             this.salary_stand_id = item.id
             // console.log(this.salary_stand_id)
-            wx.setStorageSync('salary_stand_id', this.salary_stand_id)
           }else {
             item.active = false;
           }
@@ -103,10 +102,11 @@
       },
       input: function (e) {
         this.salary = e.mp.detail.value
-        wx.setStorageSync('salary', this.salary)
         // console.log(this.salary)
       },
       nextstep: function () {
+        wx.setStorageSync('salary_stand_id', this.salary_stand_id)
+        wx.setStorageSync('salary', this.salary)
         // this.id = wx.getStorageSync('salary_stand_id')
         // console.log(this.id)
         wx.navigateTo({
