@@ -51,9 +51,6 @@
         </view>
       </view>
 
-
-
-
     </view>
 
     <text class="text3">工作内容</text>
@@ -72,8 +69,10 @@
     <view class="zwyq">职位要求
 
 
-      <text class="wqq">{{zwyq_content}}</text>
-      <view class="wqq">标签：{{yqbq}}</view>
+    <textarea :value="zonghe" @input="csinput" class="zwyqnr" auto-height="true" maxlength="***"></textarea>
+<!--      <textarea :value="zwyq_content" @input="csinput" class="wqq"></textarea>-->
+
+<!--      <view class="wqq">标签：<textarea :value="yqbq" @input="csinput"></textarea></view>-->
 
       <view class="gznr">工作内容：
         <view v-for="(poscontent,index) in job_poscontent":key="index">
@@ -87,7 +86,12 @@
 
     </view>
 
-    <rich-text :nodes="nodes" @click="tap"></rich-text>
+
+
+<!--    <rich-text :nodes="nodes" @click="tap"></rich-text>-->
+<!--    <div>-->
+<!--      <wxParse :content="article" @preview="preview" @navigate="navigate" />-->
+<!--    </div>-->
 
 
     <view class="button" @click="nextstep">
@@ -99,6 +103,7 @@
 
 <script>
   import apii from '@/utils/apii'
+  // import wxParse from 'mpvue-wxparse'
   import navBar from '@/components/navigationBar'
   export default {
     components: {
@@ -109,17 +114,7 @@
         statusBarHeight: '', // 状态栏高度
         titleBarHeight: '', // 标题栏高度
         navBarHeight: '', // 导航栏总高度
-        nodes: [{
-          name: 'div',
-          attrs: {
-            class: 'div_class',
-            style: 'line-height: 60px; color: red;'
-          },
-          children: [{
-            type: 'text',
-            text: 'Hello&nbsp;World!'
-          }]
-        }],
+        // article: '<div>我是HTML代码</div>',
         posid: 10,
         job_require: [],
         job_poscontent: [],
@@ -152,11 +147,13 @@
         subjects: '',
         labels: '',
         cs: '',
+        gznr: '',
+        zonghe: '',
         yqbq: ''
       }
     },
     mounted () {
-      this.Jobstep3()
+      this.Jobstep3();
     },
     methods: {
       async Jobstep3 () {
@@ -297,34 +294,14 @@
                 }
                 this.nr5 = this.job_require[b].content.replace(/【】/g, this.tt5)
               }
-              //   this.tt[b] = this.job_require[b].children[c].id +','
-              // // this.qqq[b] += this.job_require[b].children[c].id +','
-              //   console.log(this.tt)
-              // }
-              // console.log(item.id)
-
-              // 可用 this.tt[b] += this.job_require[b].children[c].title +'、'
-              // 可用this.yq[b] = this.job_require[b].content.replace(/【】/g, this.tt[b])
-              // 可用console.log(this.yq)
             }
           })
-          // this.service_groups = this.qqq0 +','
-          // this.skills = this.qqq1 +','
-          // this.images = this.qqq2 +','
-          // this.subjects = this.qqq3 +','
-
-          // wx.setStorageSync('service_groups', this.service_groups)
-          // wx.setStorageSync('skills', this.skills)
-          // wx.setStorageSync('images', this.images)
-          // wx.setStorageSync('subjects', this.subjects)
-          // console.log(this.service_groups)
-          // console.log(this.skills)
-          // console.log(this.images)
-          // console.log(this.subjects)
         }
 
-        this.zwyq_content = this.nr0 +'\n' + this.nr1 +'\n' + this.nr2 +'\n' + this.nr3 +'\n' + this.nr4 +'\n'
+        this.zwyq_content = this.nr0 +'\n' + this.nr1 +'\n' + this.nr2 +'\n' + this.nr3 +'\n' + this.nr4 + '\n'
         console.log(this.zwyq_content)
+        this.zonghe = '职位要求:' + this.zwyq_content + '标签:' + this.yqbq + '\n' + '工作内容:' + this.gznr + '\n'
+        console.log(this.zonghe)
         // return this.biubiu
       },
       change2: function (e) {
@@ -336,7 +313,11 @@
         this.yqbq += list[index].title + '、'
         this.labels += list[index].id + ','
         console.log(this.labels)
-        return this.yqbq
+        console.log(this.yqbq)
+        this.zonghe = '职位要求:' + this.zwyq_content + '标签:' + this.yqbq + '\n' + '工作内容:' + this.gznr + '\n'
+        // this.zonghe = this.zwyq_content  + '标签:' + this.yqbq
+        console.log(this.zonghe)
+        return this.zonghe
       },
       change3: function (e) {
         var that = this;
@@ -344,6 +325,12 @@
         var list = that.job_poscontent;
         // 判断是否选中
         list[index].active = !list[index].active;
+        if (list[index].active) {
+          this.gznr = this.gznr + '\n' + list[index].jobcontent
+        }
+        this.zonghe = '职位要求:' + this.zwyq_content + '标签:' + this.yqbq + '\n' + '工作内容:' + this.gznr + '\n'
+        console.log(this.gznr)
+        console.log(this.zonghe)
       },
       input: function (e) {
         this.title = e.mp.detail.value
@@ -356,12 +343,18 @@
         wx.navigateTo({
           url: '/pages/topic/forstep'
         })
-      }
+      },
+      csinput: function (e) {
+        this.yqbq = e.mp.detail.value
+        // wx.setStorageSync('title', this.title)
+        console.log(this.yqbq)
+      },
     }
   }
 </script>
 
 <style>
+  @import url("~mpvue-wxparse/src/wxParse.css");
   page{
     background-color: #fff;
   }
@@ -432,10 +425,20 @@
     background:rgba(236,236,236,1);
   }
   .wqq{
-    display: flex;
+    /*display: flex;*/
     margin-top:25rpx;
     font-size:28rpx;
-    line-height:35rpx;
+    line-height:45rpx;
+    font-family:PingFang-SC-Regular;
+    color:rgba(102,102,102,1);
+  }
+  .zwyqnr{
+    /*display: flex;*/
+    width:680rpx;
+    height:800rpx;
+    margin-top:25rpx;
+    font-size:28rpx;
+    line-height:45rpx;
     font-family:PingFang-SC-Regular;
     color:rgba(102,102,102,1);
   }
