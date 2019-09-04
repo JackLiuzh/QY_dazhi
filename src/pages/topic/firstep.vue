@@ -352,7 +352,15 @@
         cycs: '',
         cycle_id: [],
         xl: 0,
-        contactinfo: [],
+        contactinfo: [
+          {
+          name: [],
+          type: '电话',
+          num: [],
+          email: [],
+          qq: []
+        }
+        ],
         type: '',
         posid: '',
         salary_stand_id: '',
@@ -382,8 +390,6 @@
       this.labels = wx.getStorageSync('labels')
       this.requirement = wx.getStorageSync('requirement')
       this.workcontent = wx.getStorageSync('workcontent')
-      // this.ccs93 = wx.getStorageSync('userinfo')
-
       for(var n=0;n<2;n++){
         for (var m = 16; m < 51; m++) {
           this.multiArray[n].push(m)
@@ -397,10 +403,26 @@
     },
     methods: {
       async Jobstep5 () {
+        let that = this
         const res = await apii.Jobstep5({ uid: this.uid });
         if (res.code === 1) {
           this.userinfo = res.data.userinfo;
-          // this.edulevel = res.data.edulevel_list;
+          // // this.cs94 = this.userinfo
+          // // this.contactinfo.name = this.cs94.realname
+          // // this.contactinfo.type = "电话"
+          // // this.contactinfo.mun = this.userinfo.phone
+          // cs94.name = this.userinfo.realname
+          // cs94.type = "电话"
+          // cs94.num = this.userinfo.phone
+          // console.log(cs94)
+          // // let contactinfo = JSON.stringify(cs94)
+          // console.log(JSON.stringify(cs94))
+          // // wx.setStorageSync('hhh', hhh)
+          // // this.contactinfo.name = hhh
+          // // wx.setStorageSync('contactinfo', this.contactinfo)
+          // // let hhh = "电话"
+          // // let hhh = this.userinfo.num
+          // // console.log(hhh)
           this.paytype_list = res.data.paytype_list;
           this.welfare = res.data.welfare_list;
           this.cycle = res.data.cycle_list;
@@ -415,7 +437,10 @@
           });
           this.$forceUpdate();
         }
-        wx.setStorageSync('userinfo', this.userinfo)
+        // this.$set(that.contactinfo, 'name', this.userinfo.realname)
+        that.contactinfo[0].name.push(this.userinfo.realname)
+        that.contactinfo[0].num.push(this.userinfo.phone)
+        console.log(that.contactinfo)
       },
       change1: function (e) {
         let that = this
@@ -504,27 +529,19 @@
         console.log(that.tjzxindex)
         if(that.tjzxindex == 1){
           that.fs = that.userinfo.email
-          // this.$set(this.contactinfo, 'name', this.userinfo.realname);
-          // // this.$set(this.cs93, 'type', "电话");
-          // // this.$set(this.cs93, 'mun', this.ccs93.phone);
-          // this.$forceUpdate();
-          // // // this.contactinfo = JSON.stringify(this.cs93)
-          // // // // this.contactinfo = JSON.parse(this.cs93);
-          // // // // console.log(this.cs93)
-          // // // // this.contactinfo = this.userinfo.realname +"," + this.userinfo.phone
-          // console.log(this.contactinfo)
+          that.contactinfo[0].email.push(this.userinfo.email)
+          // wx.setStorageSync('contactinfo', this.contactinfo)
+          console.log(this.contactinfo)
         }
         else if(that.tjzxindex == 2){
           that.fs = that.userinfo.qq
-          // this.$set(this.cs93, 'qq', this.userinfo.qq);
-          // this.$forceUpdate();
-          // this.contactinfo = JSON.stringify(this.cs93)
-          // // console.log(this.contactinfo)
+          that.contactinfo[0].qq.push(this.userinfo.qq)
+          console.log(this.contactinfo)
         }else if(that.tjzxindex == 0){
           that.fs = ''
         }
-        console.log(this.contactinfo)
-        this.contactinfo = this.userinfo.realname +"," + this.userinfo.phone +","+ that.fs
+        // console.log(this.contactinfo)
+        // this.contactinfo = this.userinfo.realname +"," + this.userinfo.phone +","+ that.fs
         // console.log(this.contactinfo)
         // console.log(that.fs)
       },
@@ -580,7 +597,7 @@
           workcontent: this.workcontent,
           worktime: this.worktime,
           regdeadline: this.regdeadline,
-          contactinfo: this.contactinfo
+          contactinfo: JSON.stringify(this.contactinfo)
         });
         if (res.code === 1) {
           console.log(res.msg)
