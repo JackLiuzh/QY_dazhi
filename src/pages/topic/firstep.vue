@@ -353,14 +353,7 @@
         cycle_id: [],
         xl: 0,
         contactinfo: [
-          {
-          name: [],
-          type: '电话',
-          num: [],
-          email: [],
-          qq: []
-        }
-        ],
+          {name: [], type: '电话', num: [], email: [], qq: []}],
         type: '',
         posid: '',
         salary_stand_id: '',
@@ -407,22 +400,6 @@
         const res = await apii.Jobstep5({ uid: this.uid });
         if (res.code === 1) {
           this.userinfo = res.data.userinfo;
-          // // this.cs94 = this.userinfo
-          // // this.contactinfo.name = this.cs94.realname
-          // // this.contactinfo.type = "电话"
-          // // this.contactinfo.mun = this.userinfo.phone
-          // cs94.name = this.userinfo.realname
-          // cs94.type = "电话"
-          // cs94.num = this.userinfo.phone
-          // console.log(cs94)
-          // // let contactinfo = JSON.stringify(cs94)
-          // console.log(JSON.stringify(cs94))
-          // // wx.setStorageSync('hhh', hhh)
-          // // this.contactinfo.name = hhh
-          // // wx.setStorageSync('contactinfo', this.contactinfo)
-          // // let hhh = "电话"
-          // // let hhh = this.userinfo.num
-          // // console.log(hhh)
           this.paytype_list = res.data.paytype_list;
           this.welfare = res.data.welfare_list;
           this.cycle = res.data.cycle_list;
@@ -442,6 +419,7 @@
         that.contactinfo[0].num.push(this.userinfo.phone)
         console.log(that.contactinfo)
       },
+      // 结算方式选择
       change1: function (e) {
         let that = this
         let a = e.currentTarget.dataset.id;
@@ -458,6 +436,7 @@
           }
         })
       },
+      // 职位福利选择
       change2: function (e) {
         var that = this;
         var hh = 0;
@@ -478,6 +457,7 @@
         console.log(this.welfarecs)
         // wx.setStorageSync('welfare_id', this.welfare_id)
       },
+      // 工作周期选择
       change3: function (e) {
         var that = this;
         var hh = 0;
@@ -498,16 +478,14 @@
         console.log(this.cycs)
         // wx.setStorageSync('cycle_id', this.cycle_id)
       },
+      // 年龄段选择
       Arange (e) {
         this.multiIndex = e.mp.detail.value
         this.age += this.multiArray[0][this.multiIndex[0]] + '~' + this.multiArray[1][this.multiIndex[1]]
         // wx.setStorageSync('age', this.age)
         // console.log(this.age)
       },
-      // kk: function(e){
-      //   var tt = e.currentTarget.dataset.key1;
-      //   console.log(tt)
-      // },
+      // 添加工作时间段
       Trange (e) {
         let that = this
         // var tt = e.currentTarget.dataset.key1;
@@ -518,26 +496,30 @@
         this.worktime = this.worktime1.join()
         console.log(this.worktime)
       },
+      // 删除工作时间段
       deletePerson: function(e) {
         var ar = e.currentTarget.dataset.key;
         this.arr_date.splice(ar,1);
       },
+      // 添加咨询方式
       Tjzx (e) {
         let that = this
         // var tt = e.currentTarget.dataset.key1;
         that.tjzxindex = e.mp.detail.value
         console.log(that.tjzxindex)
-        if(that.tjzxindex == 1){
+        // 添加Email咨询
+        if (that.tjzxindex == 1) {
           that.fs = that.userinfo.email
           that.contactinfo[0].email.push(this.userinfo.email)
           // wx.setStorageSync('contactinfo', this.contactinfo)
           console.log(this.contactinfo)
         }
-        else if(that.tjzxindex == 2){
+        // 添加QQ咨询
+        else if (that.tjzxindex == 2) {
           that.fs = that.userinfo.qq
           that.contactinfo[0].qq.push(this.userinfo.qq)
           console.log(this.contactinfo)
-        }else if(that.tjzxindex == 0){
+        } else if (that.tjzxindex == 0) {
           that.fs = ''
         }
         // console.log(this.contactinfo)
@@ -545,32 +527,38 @@
         // console.log(this.contactinfo)
         // console.log(that.fs)
       },
-
+      // 性别选择
       bindPickerChange1: function (e) {
         this.xb = e.mp.detail.value
         this.sex = this.sex_list[this.xb].id
       },
+      // 学历选择
       bindPickerChange2: function (e) {
         this.xl = e.mp.detail.value
         this.edulevel = this.edulevel_list[this.xl].id
         // wx.setStorageSync('edulevel', this.edulevel)
       },
+      // 开始时间
       bindDateChange1: function (e) {
         this.startdate = e.mp.detail.value
       },
+      // 结束时间
       bindDateChange2: function (e) {
         this.enddate = e.mp.detail.value
         // wx.setStorageSync('enddate', this.enddate)
       },
+      // 截止时间
       bindDateChange3: function (e) {
         this.regdeadline = e.mp.detail.value
         // wx.setStorageSync('regdeadline', this.regdeadline)
       },
+      // 招聘人数
       input: function (e) {
         this.sum = e.mp.detail.value
         // wx.setStorageSync('sum', this.sum)
         console.log(this.sum)
       },
+      // 保存兼职信息
       async saveXx () {
         const res = await apii.saveXx({
           uid: this.uid,
@@ -603,6 +591,7 @@
           console.log(res.msg)
         }
       },
+      // 页面跳转
       nextstep: function () {
         this.saveXx()
         wx.navigateTo({

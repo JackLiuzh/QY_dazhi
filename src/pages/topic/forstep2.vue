@@ -9,10 +9,7 @@
 
     <view class="layout1">
 
-      <!--      <view class="xa">{{region[1]}}</view>-->
-      <!--        <picker class="image" mode="region" @change="bindRegionChange" :value="region" >-->
-      <!--            <img src="/static/images/sanjiao@2x.png" class="img1">-->
-      <!--        </picker>-->
+
       <input class="ss" @input="getsuggest" placeholder="请输入地点" />
 
       <view class="qx">取消</view>
@@ -53,6 +50,7 @@
         // customItem: '全部'
       }
     },
+    // 地图接口
     created () {
       // let app = getApp()
       // 实例化API核心类
@@ -61,6 +59,7 @@
       })
     },
     methods: {
+      // 输入搜索地名
       bindRegionChange: function (e) {
         // var ee = e.mp.detail.value
         this.region = e.mp.detail.value
@@ -85,6 +84,7 @@
           delta: 1
         })
       },
+      // 获取地点选择列表
       getsuggest: function (e) {
         var that = this;
         that.qqMapSdk.getSuggestion({
@@ -106,12 +106,6 @@
             that.suggestion = sug
           }
         })
-        // fail: function(error) {
-        //   console.error(error);
-        // },
-        // complete: function(res) {
-        //   console.log(res);
-        // },
       }
     }
   }

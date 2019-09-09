@@ -59,15 +59,8 @@
     },
     mounted () {
       this.Jobstep1()
-
     },
-    // computed: {
-    //   UpdateLi () {
-    //     return this.position
-    //   }
-    // },
     methods: {
-
       async Jobstep1 () {
         var y=0
         const res = await apii.Jobstep1({ uid: this.uid });
@@ -86,16 +79,10 @@
           }
         }
       },
-      // hh:function(id) {
-      //   console.log('当前被点击的id='+id)
-      // },
+      // 兼职类型选择（长短期）
       change1: function (e) {
         let that = this
-        // var code = e.currentTarget.id;
         let b = e.currentTarget.dataset.id;
-        // for(n;n<6;n++){
-        //   for(m;m<6;m++){
-        // for(n;n<this.position.length;n++){
         that.dataInfo.forEach(item => {
           // console.log(item.id)
           if(b == item.id){
@@ -107,6 +94,7 @@
           }
         })
       },
+      // 兼职方式选择
       changeClass: function (e) {
         var n=0
         var m=0
@@ -127,9 +115,7 @@
             }
           })
         }
-
       },
-
       nextstep: function () {
         wx.setStorageSync('type', this.type)
         wx.setStorageSync('posid', this.posid)

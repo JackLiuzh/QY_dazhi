@@ -71,32 +71,6 @@
       <view class="zs">{{word}}</view>
     </view>
 
-<!--      auto-height="true"-->
-<!--      <textarea :value="zwyq_content" @input="csinput" class="wqq"></textarea>-->
-
-<!--      <view class="wqq">标签：<textarea :value="yqbq" @input="csinput"></textarea></view>-->
-
-<!--      <view class="gznr">工作内容：-->
-<!--        <textarea :value="gznr" @input="csinput" class="wqq"  maxlength="***"></textarea>-->
-<!--&lt;!&ndash;        <view v-for="(poscontent,index) in job_poscontent":key="index">&ndash;&gt;-->
-<!--&lt;!&ndash;          <view v-if="poscontent.active">&ndash;&gt;-->
-<!--&lt;!&ndash;            <view class="wqq">{{index+1}}.{{poscontent.jobcontent}}</view>&ndash;&gt;-->
-<!--&lt;!&ndash;          </view>&ndash;&gt;-->
-<!--&lt;!&ndash;        </view>&ndash;&gt;-->
-<!--&lt;!&ndash;      </view>&ndash;&gt;-->
-<!--      </view>-->
-<!--      <view class="zs">198/500</view>-->
-
-<!--    </view>-->
-
-
-
-<!--    <rich-text :nodes="nodes" @click="tap"></rich-text>-->
-<!--    <div>-->
-<!--      <wxParse :content="article" @preview="preview" @navigate="navigate" />-->
-<!--    </div>-->
-
-
     <view class="button" @click="nextstep">
       <text class="bt">下一步</text>
     </view>
@@ -187,13 +161,10 @@
           }
         }
       },
-      tap: function (){
-        console.log('tap')
-      },
+      // 文本生成区文字拼接（职位要求）
       change1: function (e) {
         var n=0
         var m=0
-
         let a = e.currentTarget.dataset.id;
         let b = e.currentTarget.dataset.index1;
         let c = e.currentTarget.dataset.index2;
@@ -230,7 +201,6 @@
                     if (item.id == this.qqq1[cs]) {
                       this.qqq1.splice(cs, 1)
                       this.tt1.splice(cs, 1)
-
                     }
                   }
                 }
@@ -249,7 +219,6 @@
                     if (item.id == this.qqq2[cs]) {
                       this.qqq2.splice(cs, 1)
                       this.tt2.splice(cs, 1)
-
                     }
                   }
                 }
@@ -268,7 +237,6 @@
                     if (item.id == this.qqq3[cs]) {
                       this.qqq3.splice(cs, 1)
                       this.tt3.splice(cs, 1)
-
                     }
                   }
                 }
@@ -287,7 +255,6 @@
                     if (item.id == this.qqq4[cs]) {
                       this.qqq4.splice(cs, 1)
                       this.tt4.splice(cs, 1)
-
                     }
                   }
                 }
@@ -322,6 +289,7 @@
         console.log(this.requirement)
         // return this.biubiu
       },
+      // 文本生成区文字拼接
       change2: function (e) {
         var that = this;
         // var bqid = e.currentTarget.dataset.bqid;
@@ -354,6 +322,7 @@
         console.log(this.requirement)
         return this.requirement
       },
+      // 文本生成区文字拼接
       change3: function (e) {
         var that = this;
         var index = e.currentTarget.dataset.key;
@@ -373,16 +342,13 @@
           }
         }
         this.workcontent = this.workcontentcs.join()
-        // if (list[index].active) {
-        //   this.gznr = this.gznr + '\n' + list[index].jobcontent
-        // }
         this.requirement = '职位要求：'+'\n' + this.zwyq_content + '需要' + this.kong +'\n' +  '工作内容：' + '\n' + this.gznr
         console.log(this.gznr)
         console.log(this.requirement)
       },
+      // 输入职位标题
       input: function (e) {
         this.title = e.mp.detail.value
-
         console.log(this.title)
       },
       nextstep: function () {
@@ -400,6 +366,7 @@
           url: '/pages/topic/forstep'
         })
       },
+      // 文本生成区修改及字数判断
       contentinput: function (e) {
         this.requirement = e.mp.detail.value;
         let len = parseInt(this.requirement.length);
@@ -535,7 +502,7 @@
   .rq2{
     margin-left:35rpx;
     margin-top:25rpx;
-    width:190rpx;
+    width:195rpx;
     height:40rpx;
     font-size:28rpx;
     text-align:center;

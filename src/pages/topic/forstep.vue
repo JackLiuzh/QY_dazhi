@@ -65,16 +65,9 @@
       }
     },
     mounted () {
-      // this.Jobstep2();
-
-      // this.title = this.$route.query.title;
-      // this.addr = this.$route.query.addr;
     },
     onShow () {
-      // this.title = wx.getStorageSync('wpm')
-      // this.addr = wx.getStorageSync('wpa')
       this.hu = wx.getStorageSync('wp')
-      // console.log(this.title)
     },
     methods: {
 

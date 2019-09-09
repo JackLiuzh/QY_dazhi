@@ -17,10 +17,7 @@
       <view v-for="(as,index) in standard">
         <view :data-id="as.id" :class="[as.active?'button1':'button']"  @click="change" >
           {{as.name}}
-          <!--          <view  class="button" hover-class="button4" @click="hh(child.id)">-->
         </view>
-        <!--            <view  class="button">{{as.name}}</view>-->
-        <!--        </view>-->
       </view>
 
     </view>
@@ -61,7 +58,6 @@
         job: '',
         salary_stand_id: '',
         salary: '',
-        // id: '',
         standard: []
       }
     },
@@ -80,6 +76,7 @@
           this.$forceUpdate();
         }
       },
+      // 结算方式选择
       change: function (e) {
         let that = this
         // var code = e.currentTarget.id;
@@ -98,8 +95,8 @@
             item.active = false;
           }
         })
-
       },
+      // 对应方式薪资
       input: function (e) {
         this.salary = e.mp.detail.value
         // console.log(this.salary)
